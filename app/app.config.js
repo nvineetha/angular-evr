@@ -1,15 +1,22 @@
 'use strict';
 
-angular.
-  module('angularTraining').
-  config(['$locationProvider' ,'$routeProvider',
-    function config($locationProvider, $routeProvider) {
-      $locationProvider.hashPrefix('!');
+var controllers = {}
+var services = {}
 
-      $routeProvider.
-        when('/welcome', {
-          template: '<welcome></welcome>'
+var myApp = angular.module('angularTraining',['ngRoute','ngMessages']);
+
+myApp.config(function($routeProvider) {
+  $routeProvider.
+        when('/rentals', {
+          controller: 'RentalController',
+          templateUrl: 'rentals/rentals.template.html'
         }).
-        otherwise('/welcome');
-    }
-  ]);
+        when('/movies', {
+          controller: 'MoviesController',
+          templateUrl: 'movies/movies.component.html'
+        }).
+        otherwise('/rentals');
+});
+
+myApp.service(services);
+myApp.controller(controllers);
