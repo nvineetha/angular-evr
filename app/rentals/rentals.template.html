@@ -1,0 +1,170 @@
+<!--
+ * Created by Vineetha Nadimpalli
+ * 
+-->
+
+<!DOCTYPE html>
+<h2>Current Rentals</h2>
+	  
+	  <b> Show All Rentals: </b> <input type="checkbox" ng-model="myVar">
+	  <br>
+	  <br>
+	  
+      <div ng-show="myVar" >
+	 
+	  <br>
+      <table>
+		<tr>
+		   <th>Rental ID</th>
+		   <th>Rented By</th>
+		   <th>Movie</th>
+		   <th>Date Rented</th>
+		   <th>Date Returned</th>
+		</tr>
+	 
+		<tr ng-repeat = "rental in rentals">
+		   <td>{{ rental.Name }}</td>
+		   <td>{{ rental.Rented_By__r.Name }}</td>
+		   <td>{{ rental.Movie__r.Name }}</td>
+		   <td>{{ rental.Date_Rented__c }}</td>
+		   <td>{{ rental.Date_Returned__c }}</td>
+		</tr>
+	  </table>
+	  <br/>
+	  <br/>
+	  </div>
+	  
+	  <b> Show All Out Rentals: </b> <input type="checkbox" ng-model="outRentals">
+	  <br>
+	  <br>
+	  
+      <div ng-show="outRentals" >
+	 
+	  <br>
+      <table>
+		<tr>
+		   <th>Rental ID</th>
+		   <th>Rented By</th>
+		   <th>Movie</th>
+		   <th>Date Rented</th>
+		   <th>Date Returned</th>
+		</tr>
+	 
+		<tr ng-repeat = "rental in rentals" ng-if="!rental.Date_Returned__c">
+		   <td>{{ rental.Name }}</td>
+		   <td>{{ rental.Rented_By__r.Name }}</td>
+		   <td>{{ rental.Movie__r.Name }}</td>
+		   <td>{{ rental.Date_Rented__c }}</td>
+		   <td>{{ rental.Date_Returned__c }}</td>
+		</tr>
+	  </table>
+	  <br/>
+	  <br/>
+      </div>
+
+	  <div>
+		<div class="cust" >
+		<form name ="customerForm">
+		 
+		    Enter Customer Details:
+			
+			<br>
+			<br>
+			Name:
+			<input type="text" name="name" ng-model="User.UserName" id="user.cname" placeholder="Enter " required/>
+			<br>
+			<br>
+			Phone:
+			<input type="text" name ="phone" ng-model="User.Phone" id="user.phone" placeholder="Enter " required/>
+			<br>
+			<br>
+			<br>
+			<button ng-click="show=!show;getCustRentalData()">Enter</button>
+			<br>
+			<br>
+			
+			<table ng-show="show" >
+			<tr>
+			   <th>Rental ID</th>
+			   <th>Rented By</th>
+			   <th>Movie</th>
+			   <th>Date Rented</th>
+			   <th>Date Returned</th>
+			</tr>
+		 
+			<tr ng-repeat = "rental in customerRentals" ng-if="!rental.Date_Returned__c">
+				
+					<td>{{ rental.Name }}</td>
+					<td>{{ rental.Rented_By__r.Name }}</td>
+					<td>{{ rental.Movie__r.Name }}</td>
+					<td>{{ rental.Date_Rented__c }}</td>
+					<td>{{ rental.Date_Returned__c }}</td>
+			</tr>
+		  </table>
+		  <br>
+		</form>
+		
+	<b ng-show="show"> Show All Previous Rentals: </b> <input type="checkbox" ng-show="show" ng-model="prevRentals">
+	  <br>
+	  <br>
+	  
+      <div ng-show="prevRentals" >
+	 
+	  <br>
+      <table>
+		<tr>
+		   <th>Rental ID</th>
+		   <th>Rented By</th>
+		   <th>Movie</th>
+		   <th>Date Rented</th>
+		   <th>Date Returned</th>
+		</tr>
+	 
+		<tr ng-repeat = "rental in customerRentals" ng-if="rental.Date_Returned__c">
+		   <td>{{ rental.Name }}</td>
+		   <td>{{ rental.Rented_By__r.Name }}</td>
+		   <td>{{ rental.Movie__r.Name }}</td>
+		   <td>{{ rental.Date_Rented__c }}</td>
+		   <td>{{ rental.Date_Returned__c }}</td>
+		</tr>
+	  </table>
+	  <br/>
+	  <br/>
+      </div>
+		  
+	  <form name="issueForm">
+		  <p ng-show="show"> 
+			<b>Issue Movie:</b>
+			<br>
+			<br>
+			<span>{{issueMessage}}</span>
+			<br>
+			Movie Name: <nbsp/>
+		  
+		 
+		  <input ng-show="show" type="text" ng-model="User.MovieName" id="user.mname" placeholder="Enter" required/>
+		 
+		 
+		  <button ng-show="show" ng-click = "issueMovieFunc()">Issue Movie</button>
+		  </p>
+		</form>
+		<form name="returnForm">
+		  <p ng-show="show"> 
+			<b>Return Movie:</b>
+			<br>
+			<br>
+			<span>{{returnMessage}}</span>
+			<br>
+			Rental ID: <nbsp/>
+		  
+			
+		  <input ng-show="show" type="text" ng-model="User.RID" id="user.rid" placeholder="Enter " required/>
+		 
+		  <button ng-show="show" ng-click="returnMovieFunc() ">Return Movie</button>
+		  <br>
+		  <br>
+		   </p>
+		</form>
+
+	  </div>
+	  </div>
