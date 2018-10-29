@@ -1,0 +1,76 @@
+/*
+  Created by Vineetha Nadimpalli
+*/
+
+body {
+    padding: 20px;
+    
+  }
+  
+  .rHeader {
+    border-bottom: 1px solid gray;
+    margin-top: 0;
+   
+  }
+  
+
+  .rTable, th , td {
+    margin-top:20px;
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    margin-bottom: 20px;
+    
+  }
+
+  th{
+    background-color:black;
+    color:white;
+  }
+
+  td{
+    background-color: gainsboro;
+  }
+  
+  .rTable tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  .rTable tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+  
+  .rSpan {
+    color: blue;
+    font-family: Arial;
+    font-size: smaller;
+  }
+  
+  .checkbox1{
+      margin-top:15px;
+      margin-left:0px;
+      margin-bottom:30px;
+      
+  }
+
+  .rForm{
+    margin-top:15px;
+    margin-left:0px;
+    margin-bottom:15px;
+  }
+
+  .rText{
+    margin-top:15px;
+    margin-left:0px;
+    margin-bottom:20px;
+  }
+
+  button{
+    background-color: black;
+    color:white;
+    border-radius: 8px;
+  }
+  
+  .rLabel{
+    border-radius: 8px;
+  }

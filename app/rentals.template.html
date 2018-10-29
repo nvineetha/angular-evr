@@ -1,0 +1,150 @@
+<!--
+* Created by Vineetha Nadimpalli
+* 
+-->
+
+<!DOCTYPE html>
+<script src = "rentals/rentals.template.css"></script>
+
+<div ng-controller="RentalController as RController">
+<h2 class = "rHeader">Current Rentals</h2>
+<div class="checkbox1">
+  <b> Show All Rentals: </b> <input type="checkbox" ng-model="myVar">
+</div>
+
+<div ng-show="myVar" ng-controller="RentalController as RController">
+  <table class ="rTable">
+    <tr>
+      <th>Rental ID</th>
+      <th>Rented By</th>
+      <th>Movie</th>
+      <th>Date Rented</th>
+      <th>Date Returned</th>
+    </tr>
+  
+	<tr ng-repeat = "rental in RController.rentals">
+	  <td><span ng-bind="rental.Name"></span></td>
+	  <td><span ng-bind="rental.Rented_By__r.Name"></span></td>
+	  <td><span ng-bind="rental.Movie__r.Name"></span></td>
+	  <td><span ng-bind="rental.Date_Rented__c"></span></td>
+	  <td><span ng-bind="rental.Date_Returned__c"></span></td>
+	</tr>
+  </table>
+</div>
+
+<div class="checkbox1">
+  <b> Show All Out Rentals: </b> <input type="checkbox" ng-model="outRentals">
+</div>
+
+<div ng-show="outRentals" ng-controller="RentalController as RController" >
+  <table class="rTable">
+    <tr>
+	  <th>Rental ID</th>
+	  <th>Rented By</th>
+	  <th>Movie</th>
+	  <th>Date Rented</th>
+	  <th>Date Returned</th>
+	</tr>
+
+	<tr ng-repeat = "rental in RController.rentals" ng-if="!rental.Date_Returned__c">
+	  <td><span ng-bind="rental.Name"></span></td>
+	  <td><span ng-bind="rental.Rented_By__r.Name"></span></td>
+	  <td><span ng-bind="rental.Movie__r.Name"></span></td>
+	  <td><span ng-bind="rental.Date_Rented__c"></span></td>
+	  <td><span ng-bind="rental.Date_Returned__c"></span></td>
+	</tr>
+  </table>
+</div>
+
+
+<div ng-controller="RentalController as RController" >
+  <form name ="customerForm">
+  <div class = "rText" >
+    Enter Customer Details:
+  </div>
+  <div class = "rText">
+    <b>Name:</b>
+	<input type="text" class="rLabel" name="name" ng-model="RController.User.UserName" id="user.cname" placeholder="Enter " required/>
+  </div>
+  
+  <div class = "rText">
+	<b>Phone:</b>
+	<input type="text" class="rLabel" name ="phone" ng-model="RController.User.Phone" id="user.phone" placeholder="Enter " required/>
+  </div>
+  <button ng-click="show=!show;RController.getCustRentalData()">Enter</button>
+
+  
+  <table class = "rTable" ng-show="show" >
+	<tr>
+	  <th>Rental ID</th>
+	  <th>Rented By</th>
+	  <th>Movie</th>
+	  <th>Date Rented</th>
+	  <th>Date Returned</th>
+  	</tr>
+
+	<tr ng-repeat = "rental in RController.customerRentals" ng-if="!rental.Date_Returned__c">
+	  <td><span ng-bind="rental.Name"></span></td>
+	  <td><span ng-bind="rental.Rented_By__r.Name"></span></td>
+	  <td><span ng-bind="rental.Movie__r.Name"></span></td>
+	  <td><span ng-bind="rental.Date_Rented__c"></span></td>
+	  <td><span ng-bind="rental.Date_Returned__c"></span></td>
+	</tr>
+  </table>
+  </form>
+  
+  <div class = "checkbox1" ng-show="show">
+    <b > Show All Previous Rentals: </b> <input type="checkbox" ng-show="show" ng-model="prevRentals">
+  </div>
+  
+  <div ng-show="prevRentals" >
+    <table class = "rTable">
+    <tr>
+	  <th>Rental ID</th>
+	  <th>Rented By</th>
+	  <th>Movie</th>
+	  <th>Date Rented</th>
+	  <th>Date Returned</th>
+    </tr>
+
+	<tr ng-repeat = "rental in RController.customerRentals" ng-if="rental.Date_Returned__c">
+	  <td><span ng-bind="rental.Name"></span></td>
+	  <td><span ng-bind="rental.Rented_By__r.Name"></span></td>
+	  <td><span ng-bind="rental.Movie__r.Name"></span></td>
+	  <td><span ng-bind="rental.Date_Rented__c"></span></td>
+	  <td><span ng-bind="rental.Date_Returned__c"></span></td>
+	</tr>
+	</table>
+  </div>
+
+  <form name="issueForm">
+    <p ng-show="show"> 
+      <div class="rText">
+        <b ng-show="show">Issue Movie:</b>
+      </div>
+
+      <span ng-show="show" class="rSpan">{{RController.issueMessage}}</span>
+      <div class="rText" ng-show="show">
+        Movie Name: <nbsp/> 
+      </div>
+
+      <input ng-show="show" class="rLabel" type="text" ng-model="RController.User.MovieName" id="user.mname" placeholder="Enter" required/>
+      <button ng-show="show" ng-click = "RController.issueMovieFunc()">Issue Movie</button>
+    </p>
+  </form>
+  
+  <form name="returnForm">
+    <p ng-show="show">
+      <div class="rText">
+        <b ng-show="show">Return Movie:</b>
+       </div>
+      <span class="rSpan">{{RController.returnMessage}}</span>
+      <div class="rText"  ng-show="show">
+        Rental ID: <nbsp/>
+      </div>
+      <input ng-show="show" class="rLabel" type="text" ng-model="RController.User.RID" id="user.rid" placeholder="Enter " required/>
+      <button ng-show="show" ng-click="RController.returnMovieFunc() ">Return Movie</button>
+    </p>
+  </form>
+</div>
+</div>
